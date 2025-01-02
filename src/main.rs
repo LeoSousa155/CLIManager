@@ -45,7 +45,7 @@ fn main() -> std::io::Result<()> {
             Err(e) => println!("Todo file not found: {:?}", e),
         },
         
-        "mark" => match todo_file.load() {
+        "toggle" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
                 let done = todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1);
@@ -72,10 +72,10 @@ fn main() -> std::io::Result<()> {
                 if args.len() == 2 {
                     todo.print_all_todos();
                 }
-                else if args[2] == "done" {
+                else if args[2] == "marked" {
                     todo.print_completed_todos();
                 }
-                else if args[2] == "undone" {
+                else if args[2] == "unmarked" {
                     todo.print_incomplete_todos();
                 }
                 else {
@@ -89,11 +89,11 @@ fn main() -> std::io::Result<()> {
             println!("List of commands:
                 init                         - create a new todo file
                 add     'name' 'description' - add a new todo
-                mark    'index'              - mark a todo as completed
+                toggle  'index'              - mark a todo as completed
                 remove  'index'              - remove a todo
                 show                         - show all todos
-                |---show done                - show completed todos
-                ----show undone              - show incomplete todos
+                |---show marked              - show completed todos
+                ----show unmarked            - show incomplete todos
                 help                         - show this help message
             ");
         }

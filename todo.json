@@ -1,0 +1,74 @@
+{
+  "todos": [
+    {
+      "name": "Edição",
+      "description": "Adicionar funcionalidade para editar uma entrada a partir do id",
+      "completed": false
+    },
+    {
+      "name": "Desmarcar todos",
+      "description": "adicionar funcialidade para desmarcar todos, útil para tarefas diárias",
+      "completed": false
+    },
+    {
+      "name": "agrupados",
+      "description": "Comando show que agrupa markeds com unmarkeds",
+      "completed": false
+    },
+    {
+      "name": "Trocar ordem",
+      "description": "comando para trocar a ordem das tarefas a partir dos indices",
+      "completed": false
+    },
+    {
+      "name": "Mais propriedades",
+      "description": "adicionar novas propriedades as entradas de cada tarefa",
+      "completed": false
+    },
+    {
+      "name": "Tipos de tarefas",
+      "description": "Diferenciar as tarefas e agrupar por tipo",
+      "completed": false
+    },
+    {
+      "name": "subtarefas",
+      "description": "permitir que cada tarefa tenha subtarefas para dividir tarefas complexas em várias simples",
+      "completed": false
+    },
+    {
+      "name": "show parcial",
+      "description": "Fazer o show parcial das descrições (tipo 40 caracteres) e para ver o resto fazer 'clim show index'",
+      "completed": false
+    },
+    {
+      "name": "clear on show",
+      "description": "limpar o terminal depois de executar o comando show para ter melhor visualização das tarefas",
+      "completed": false
+    },
+    {
+      "name": "clear + show no mark",
+      "description": "ao marcar uma tarefa limpa o terminal e mostra a nova lista de tarefas atualizada, permitindo melhor fluxo de alterações",
+      "completed": false
+    },
+    {
+      "name": "remover print do comando",
+      "description": "remover o print dos argumentos do comando executado, para ficar mais clean",
+      "completed": false
+    },
+    {
+      "name": "criar instalador",
+      "description": "ver como posso criar um instalador para esta ferramenta de linha de comando, para partilhar com o pessoal",
+      "completed": false
+    },
+    {
+      "name": "criar updater",
+      "description": "criar um comando 'update' que atualiza a versão mais recente do clim",
+      "completed": false
+    },
+    {
+      "name": "modo daltônico",
+      "description": "adicionar um modo daltônico para as pessoas que têm dificuldades de distinguir o vermelho do verde",
+      "completed": false
+    }
+  ]
+}
