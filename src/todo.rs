@@ -88,7 +88,6 @@ impl ToDoList {
 
     pub fn toggle_todo(&mut self, index: usize) -> bool{
         self.todos[index].toggle_completed();
-        println!("completed: {}", self.todos[index].completed);
         return self.todos[index].completed;
     }
 
@@ -96,7 +95,8 @@ impl ToDoList {
 
     pub fn print_all_todos(&self) {
         let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
-
+        
+        println!("All todos:");
         for (index, todo) in self.todos.iter().enumerate() {
             todo.print(index_len, index+1);
         }
@@ -105,6 +105,7 @@ impl ToDoList {
     pub fn print_completed_todos(&self) {
         let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
 
+        println!("Completed todos:");
         for (index, todo) in self.todos.iter().enumerate() {
             if todo.completed {
                 todo.print(index_len, index+1);
@@ -115,6 +116,7 @@ impl ToDoList {
     pub fn print_incomplete_todos(&self) {
         let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
 
+        println!("Incomplete todos:");
         for (index, todo) in self.todos.iter().enumerate() {
             if !todo.completed {
                 todo.print(index_len, index+1);

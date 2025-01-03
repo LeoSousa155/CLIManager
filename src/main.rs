@@ -2,10 +2,11 @@
 #![allow(unused_variables)]
 #![allow(unused_imports)]
 
-
-use std::env;
-use std::io::prelude::*;
-use std::fs;
+use std::{
+    env,
+    io::prelude::*,
+    fs,
+};
 
 mod todo;
 
@@ -15,7 +16,6 @@ fn verify_command_arguments(args: &Vec<String>) {
     // Check if the command is valid
     // Check if the command has the correct number of arguments
     // Check if the command arguments are valid
-    println!("Command: {:?}", args);
     if args.len() < 2 {
         println!("Please pass arguments to the command.");
         return;
@@ -24,10 +24,12 @@ fn verify_command_arguments(args: &Vec<String>) {
 
 
 fn main() -> std::io::Result<()> {
+
+    //limpar o terminal antes de mostrar o resultado do comando
+    clearscreen::clear().expect("failed to clear screen");
+
     let args: Vec<String> = env::args().collect();
     verify_command_arguments(&args);
-
-    println!("args: {:?}", args[1]);
 
     let todo_file = todo::ToDoFile::new(String::from("./todo.json"));
 
@@ -36,6 +38,7 @@ fn main() -> std::io::Result<()> {
             Ok(_) => println!("Todo file created successfully"),
             Err(_) => println!("Todo file already exists"),
         },
+
         "add" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
@@ -50,8 +53,7 @@ fn main() -> std::io::Result<()> {
                 let mut todo_list = todo;
                 let done = todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1);
 
-                if done { println!("Todo completed"); } 
-                else    { println!("Todo unmarked");  }
+                todo_list.print_all_todos();
 
                 let _ = todo_file.save(&todo_list);
             },
@@ -71,15 +73,12 @@ fn main() -> std::io::Result<()> {
             Ok(todo) => {
                 if args.len() == 2 {
                     todo.print_all_todos();
+                    return Ok(());
                 }
-                else if args[2] == "marked" {
-                    todo.print_completed_todos();
-                }
-                else if args[2] == "unmarked" {
-                    todo.print_incomplete_todos();
-                }
-                else {
-                    println!("Invalid argument, use 'help' to see the list of commands");
+                match args[2].as_str() {
+                    "marked" => todo.print_completed_todos(),
+                    "unmarked" => todo.print_incomplete_todos(),
+                    _ => println!("Invalid argument, use 'help' to see the list of commands"),
                 }
             },
             Err(_) => println!("Todo file not found"),
@@ -96,7 +95,8 @@ fn main() -> std::io::Result<()> {
                 ----show unmarked            - show incomplete todos
                 help                         - show this help message
             ");
-        }
+        },
+
         _ => println!("Invalid command, use 'help' to see the list of commands"),
     }
 
