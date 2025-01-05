@@ -53,16 +53,9 @@ fn main() -> std::io::Result<()> {
         "toggle" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
-                let done =  match todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1) {
-                    Some(done) => done,
-                    None => {
-                        println!("Todo not found");
-                        return Ok(());
-                    }
-                };
+                todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1);
 
                 todo_list.print_all_todos();
-
                 let _ = todo_file.save(&todo_list);
             },
             Err(e) => println!("Todo file not found: {:?}", e),
@@ -97,8 +90,16 @@ fn main() -> std::io::Result<()> {
                     return Ok(());
                 }
                 match args[2].as_str() {
-                    "marked" => todo.print_completed_todos(),
-                    "unmarked" => todo.print_incomplete_todos(),
+                    "-m" => todo.print_completed_todos(),
+                    "-u" => todo.print_incomplete_todos(),
+                    "-mu" => {
+                        todo.print_completed_todos();
+                        todo.print_incomplete_todos();
+                    },
+                    "-um" => {
+                        todo.print_incomplete_todos();
+                        todo.print_completed_todos();
+                    },
                     _ => println!("Invalid argument, use 'help' to see the list of commands"),
                 }
             },
@@ -113,8 +114,10 @@ fn main() -> std::io::Result<()> {
                 remove  'index'              - remove a todo
                 reset                        - reset the todo file (mark all todos as incomplete)
                 show                         - show all todos
-                |---show marked              - show completed todos
-                ----show unmarked            - show incomplete todos
+                |---show -m                  - show completed todos
+                |---show -u                  - show incomplete todos
+                |---show -mu                 - show completed todos before incomplete todos
+                ----show -um                 - show incomplete todos before completed todos
                 help                         - show this help message
             ");
         },

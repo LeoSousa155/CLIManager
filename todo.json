@@ -69,6 +69,31 @@
       "name": "tomar cuidado com os indices",
       "description": "fazer o tratamento do IndexOutOfBounds nas funções que recebem indices do utilizador",
       "completed": true
+    },
+    {
+      "name": "separar structs",
+      "description": "colocar cada struct e suas respetivas implementações em ficheiros diferentes para ter melhor organização do código",
+      "completed": false
+    },
+    {
+      "name": "comando 'clear'",
+      "description": "criar o comando 'clear' que remove todos os todos da lista",
+      "completed": false
+    },
+    {
+      "name": "modo daltonico",
+      "description": "adicionar um modo daltônico para quem tem problemas em distinguir o vermelho do verde",
+      "completed": false
+    },
+    {
+      "name": "espaçar como os números",
+      "description": "deixar espaço em branco nos nomes de modo as descrições estarem alinhadas, tal como nos números",
+      "completed": false
+    },
+    {
+      "name": "atualizar comando 'help'",
+      "description": "colocar o comando 'help' como descrição geral e fazer 'help comando' para ter informações mais detalhadas do comando indicado",
+      "completed": false
     }
   ]
 }

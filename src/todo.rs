@@ -97,16 +97,10 @@ impl ToDoList {
         }
     }
 
-    pub fn toggle_todo(&mut self, index: usize) -> Option<bool> {
+    pub fn toggle_todo(&mut self, index: usize) {
         match self.todos.get_mut(index) {
-            Some(todo) => {
-                todo.toggle_completed();
-                return Some(todo.completed);
-            },
-            None => {
-                println!("Todo not found");
-                return None;
-            },
+            Some(todo) => todo.toggle_completed(),
+            None => println!("Todo not found"),
         }
     }
 
