@@ -43,6 +43,8 @@ fn main() -> std::io::Result<()> {
             Ok(todo) => {
                 let mut todo_list = todo;
                 todo_list.add_todo(ToDo::new(args[2].clone(), args[3].clone()));
+
+                todo_list.print_all_todos();
                 let _ = todo_file.save(&todo_list);
             },
             Err(e) => println!("Todo file not found: {:?}", e),
@@ -51,7 +53,13 @@ fn main() -> std::io::Result<()> {
         "toggle" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
-                let done = todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1);
+                let done =  match todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1) {
+                    Some(done) => done,
+                    None => {
+                        println!("Todo not found");
+                        return Ok(());
+                    }
+                };
 
                 todo_list.print_all_todos();
 
@@ -63,10 +71,23 @@ fn main() -> std::io::Result<()> {
         "remove" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
-                todo_list.remove_todo(args[2].parse::<usize>().unwrap() - 1);
+                todo_list.remove_todo(args[2].parse::<usize>().unwrap());
+
+                todo_list.print_all_todos();
                 let _ = todo_file.save(&todo_list);
             },
             Err(e) => println!("Todo file not found: {:?}", e),
+        },
+
+        "reset" => match todo_file.load() {
+            Ok(todo) => {
+                let mut todo_list = todo;
+                todo_list.reset();
+
+                todo_list.print_all_todos();
+                let _ = todo_file.save(&todo_list);
+            },
+            Err(_) => println!("Todo file not found"),
         },
         
         "show" => match todo_file.load() {
@@ -90,6 +111,7 @@ fn main() -> std::io::Result<()> {
                 add     'name' 'description' - add a new todo
                 toggle  'index'              - mark a todo as completed
                 remove  'index'              - remove a todo
+                reset                        - reset the todo file (mark all todos as incomplete)
                 show                         - show all todos
                 |---show marked              - show completed todos
                 ----show unmarked            - show incomplete todos

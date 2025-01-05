@@ -51,10 +51,11 @@ impl ToDo {
 
     pub fn print(&self, size: usize, index: usize) {
         let formatted_index = format!("{:>size$}", index, size=size);
-        if self.completed 
-        { println!("{}-[X] {} : {}", formatted_index, self.name.green(), self.description); } 
-        else              
-        { println!("{}-[ ] {} : {}", formatted_index, self.name.red(), self.description); }
+        if self.completed { 
+            println!("{}-[X] {} : {}", formatted_index, self.name.green(), self.description); 
+        } else { 
+            println!("{}-[ ] {} : {}", formatted_index, self.name.red(), self.description); 
+        }
     }
 }
 
@@ -73,22 +74,46 @@ impl ToDoList {
     }
 
     pub fn remove_todo(&mut self, index: usize) {
-        self.todos.remove(index);
+        if 0 < index && index <= self.todos.len() {
+            self.todos.remove(index-1);
+        } else {
+            println!("Error: Index out of bounds");
+        }
     }
 
     // Modifying functions
 
     pub fn change_todo_name(&mut self, index: usize, name: String) {
-        self.todos[index].set_name(name);
+        match self.todos.get_mut(index) {
+            Some(todo) => todo.set_name(name),
+            None => println!("Todo not found"),
+        }
     }
 
     pub fn change_todo_description(&mut self, index: usize, description: String) {
-        self.todos[index].set_description(description);
+        match self.todos.get_mut(index) {
+            Some(todo) => todo.set_description(description),
+            None => println!("Todo not found"),
+        }
     }
 
-    pub fn toggle_todo(&mut self, index: usize) -> bool{
-        self.todos[index].toggle_completed();
-        return self.todos[index].completed;
+    pub fn toggle_todo(&mut self, index: usize) -> Option<bool> {
+        match self.todos.get_mut(index) {
+            Some(todo) => {
+                todo.toggle_completed();
+                return Some(todo.completed);
+            },
+            None => {
+                println!("Todo not found");
+                return None;
+            },
+        }
+    }
+
+    pub fn reset(&mut self) {
+        for todo in &mut self.todos {
+            todo.completed = false;
+        }
     }
 
     //Printing functions

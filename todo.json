@@ -8,7 +8,7 @@
     {
       "name": "Desmarcar todos",
       "description": "adicionar funcialidade para desmarcar todos, útil para tarefas diárias",
-      "completed": false
+      "completed": true
     },
     {
       "name": "agrupados",
@@ -66,9 +66,9 @@
       "completed": false
     },
     {
-      "name": "modo daltônico",
-      "description": "adicionar um modo daltônico para as pessoas que têm dificuldades de distinguir o vermelho do verde",
-      "completed": false
+      "name": "tomar cuidado com os indices",
+      "description": "fazer o tratamento do IndexOutOfBounds nas funções que recebem indices do utilizador",
+      "completed": true
     }
   ]
 }
