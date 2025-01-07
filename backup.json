@@ -1,6 +1,4 @@
 {
-  "total_tasks": 20,
-  "completed_tasks": 7,
   "todos": [
     {
       "name": "Edição",
@@ -100,7 +98,7 @@
     {
       "name": "adicionar percentagem no show feitos",
       "description": "adicionar uma fração (ex.: 7/10) e valor em percentagem (ex.:70%) das tarefas feitas e não feitas com -m e -u e percentagem",
-      "completed": true
+      "completed": false
     }
   ]
 }
