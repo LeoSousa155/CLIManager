@@ -1,7 +1,3 @@
-use std::io::Read;
-use std::io::Write;
-use std::fs;
-use serde_json::{Value};
 use serde::{Deserialize, Serialize};
 
 
@@ -9,6 +5,7 @@ trait Colorize {
     fn green(&self) -> String;
     fn red(&self) -> String;
 }
+
 
 impl Colorize for String {
     fn green(&self) -> String {
@@ -28,6 +25,7 @@ pub struct ToDo {
     completed: bool,
 }
 
+
 impl ToDo {
     pub fn new(name: String, description: String) -> ToDo {
         ToDo {
@@ -37,17 +35,17 @@ impl ToDo {
         }
     }
     
-    pub fn set_name(&mut self, name: String) {
-        self.name = name;
-    }
 
-    pub fn set_description(&mut self, description: String) {
-        self.description = description;
-    }
+    pub fn set_name(&mut self, name: String) { self.name = name; }
+    pub fn set_description(&mut self, description: String) { self.description = description; }
 
-    pub fn toggle_completed(&mut self) {
-        self.completed = !self.completed;
-    }
+    pub fn is_marked(&self) -> bool { self.completed}
+
+    // change completion state 
+    pub fn toggle_mark(&mut self) { self.completed = !self.completed; }
+    pub fn set_marked(&mut self) { self.completed = true; }
+    pub fn set_unmarked(&mut self) { self.completed = false; }
+
 
     pub fn print(&self, size: usize, index: usize) {
         let formatted_index = format!("{:>size$}", index, size=size);
@@ -56,146 +54,5 @@ impl ToDo {
         } else { 
             println!("{}-[ ] {} : {}", formatted_index, self.name.red(), self.description); 
         }
-    }
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ToDoList {
-    todos: Vec<ToDo>,
-}
-
-impl ToDoList {
-    fn new() -> ToDoList {
-        ToDoList { todos: Vec::new() }
-    }
-
-    pub fn  add_todo(&mut self, todo: ToDo) {
-        self.todos.push(todo);
-    }
-
-    pub fn remove_todo(&mut self, index: usize) {
-        if 0 < index && index <= self.todos.len() {
-            self.todos.remove(index-1);
-        } else {
-            println!("Error: Index out of bounds");
-        }
-    }
-
-    // Modifying functions
-
-    pub fn change_todo_name(&mut self, index: usize, name: String) {
-        match self.todos.get_mut(index) {
-            Some(todo) => todo.set_name(name),
-            None => println!("Todo not found"),
-        }
-    }
-
-    pub fn change_todo_description(&mut self, index: usize, description: String) {
-        match self.todos.get_mut(index) {
-            Some(todo) => todo.set_description(description),
-            None => println!("Todo not found"),
-        }
-    }
-
-    pub fn toggle_todo(&mut self, index: usize) {
-        match self.todos.get_mut(index) {
-            Some(todo) => todo.toggle_completed(),
-            None => println!("Todo not found"),
-        }
-    }
-
-    pub fn reset(&mut self) {
-        for todo in &mut self.todos {
-            todo.completed = false;
-        }
-    }
-
-    //Printing functions
-
-    pub fn print_all_todos(&self) {
-        let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
-        
-        println!("All todos:");
-        for (index, todo) in self.todos.iter().enumerate() {
-            todo.print(index_len, index+1);
-        }
-    }
-
-    pub fn print_completed_todos(&self) {
-        let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
-
-        println!("Completed todos:");
-        for (index, todo) in self.todos.iter().enumerate() {
-            if todo.completed {
-                todo.print(index_len, index+1);
-            }
-        }
-    }
-
-    pub fn print_incomplete_todos(&self) {
-        let index_len = (self.todos.len() as f64 + 0.1).log10().ceil() as usize;
-
-        println!("Incomplete todos:");
-        for (index, todo) in self.todos.iter().enumerate() {
-            if !todo.completed {
-                todo.print(index_len, index+1);
-            }
-        }
-    }
-}
-
-pub struct ToDoFile {
-    file_name: String
-}
-
-impl ToDoFile {
-    pub fn new(file_name: String) -> ToDoFile {
-        ToDoFile { file_name }
-    }
-
-    pub fn init(&self) -> Result<(), std::io::Error> {
-        let mut file = fs::File::create_new(&self.file_name)?;
-        file.write_all(b"{}")?;
-        return Ok(());
-    }
-
-    pub fn load(&self) -> Result<ToDoList, Box<dyn std::error::Error>> {
-        let mut file = fs::File::open(&self.file_name)?;
-        let mut buffer = String::new();
-        file.read_to_string(&mut buffer)?;
-    
-        // Desserializar o JSON para um Value
-        let todos_values: Value = serde_json::from_str(&buffer)?;
-    
-        // Inicializar uma nova lista de tarefas
-        let mut todos = ToDoList::new();
-    
-        // Garantir que o Value é um array e iterar sobre ele
-        if let Some(array) = todos_values["todos"].as_array() {
-            for todo in array {
-                // Ler os campos do JSON
-                let name = todo["name"].as_str().unwrap_or("").to_string();
-                let description = todo["description"].as_str().unwrap_or("").to_string();
-                let completed = todo["completed"].as_bool().unwrap_or(false);
-    
-                // Criar uma nova tarefa e ajustá-la conforme necessário
-                let mut todo = ToDo::new(name, description);
-                if completed {
-                    todo.toggle_completed();
-                }
-                // Adicionar a tarefa à lista
-                todos.add_todo(todo);
-            }
-        }
-    
-        Ok(todos)
-    }
-    
-
-    pub fn save(&self, todos: &ToDoList) -> Result<(), std::io::Error> {
-        let serialized = serde_json::to_string_pretty(todos)?;
-        let mut file = fs::File::create(&self.file_name)?;
-        file.write_all(serialized.as_bytes())?;
-        return Ok(());
     }
 }

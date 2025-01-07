@@ -9,18 +9,12 @@ use std::{
 };
 
 mod todo;
+mod todo_list;
+mod todo_file;
 
-use todo::{ ToDo, ToDoList };
-
-fn verify_command_arguments(args: &Vec<String>) {
-    // Check if the command is valid
-    // Check if the command has the correct number of arguments
-    // Check if the command arguments are valid
-    if args.len() < 2 {
-        println!("Please pass arguments to the command.");
-        return;
-    }
-}
+use todo::ToDo;
+use todo_list::ToDoList;
+use todo_file::ToDoFile;
 
 
 fn main() -> std::io::Result<()> {
@@ -29,9 +23,13 @@ fn main() -> std::io::Result<()> {
     clearscreen::clear().expect("failed to clear screen");
 
     let args: Vec<String> = env::args().collect();
-    verify_command_arguments(&args);
 
-    let todo_file = todo::ToDoFile::new(String::from("./todo.json"));
+    if args.len() < 2 {
+        println!("Please pass arguments to the command. Use 'help' to see the list of commands");
+        return Ok(());
+    }
+
+    let todo_file = ToDoFile::new(String::from("./todo.json"));
 
     match args[1].as_str() {
         "init" => match todo_file.init() {
