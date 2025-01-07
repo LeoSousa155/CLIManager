@@ -21,13 +21,34 @@ impl ToDoList {
         }
     }
 
+
+    pub fn set_total_tasks(&mut self, total_tasks: usize) {
+        self.total_tasks = total_tasks;
+    }
+
+
+    pub fn set_completed_tasks(&mut self, completed_tasks: usize) {
+        self.completed_tasks = completed_tasks;
+    }
+
+
+    pub fn get_total_tasks(&self) -> usize {
+        self.total_tasks
+    }
+
+
+    pub fn get_completed_tasks(&self) -> usize {
+        self.completed_tasks
+    }
+
+
     pub fn  add_todo(&mut self, todo: ToDo) {
+        self.todos.push(todo);
+    }
+    
+    
+    pub fn  add_new_todo(&mut self, todo: ToDo) {
         self.total_tasks += 1;
-
-        if todo.is_marked() {
-                self.completed_tasks += 1;
-            }
-
         self.todos.push(todo);
     }
 
@@ -35,6 +56,11 @@ impl ToDoList {
     pub fn remove_todo(&mut self, index: usize) {
         if 0 < index && index <= self.todos.len() {
             self.total_tasks -= 1;
+
+            if self.todos[index-1].is_marked() {
+                self.completed_tasks -= 1;
+            }
+
             self.todos.remove(index-1);
         } else {
             println!("Error: Index out of bounds");

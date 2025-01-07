@@ -40,7 +40,7 @@ fn main() -> std::io::Result<()> {
         "add" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
-                todo_list.add_todo(ToDo::new(args[2].clone(), args[3].clone()));
+                todo_list.add_new_todo(ToDo::new(args[2].clone(), args[3].clone()));
 
                 todo_list.print_all_todos();
                 let _ = todo_file.save(&todo_list);

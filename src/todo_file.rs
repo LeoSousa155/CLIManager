@@ -18,12 +18,14 @@ impl ToDoFile {
         ToDoFile { file_name }
     }
 
+
     pub fn init(&self) -> Result<(), std::io::Error> {
         let mut file = fs::File::create_new(&self.file_name)?;
         file.write_all(b"{}")?;
         return Ok(());
     }
 
+    
     pub fn load(&self) -> Result<ToDoList, Box<dyn std::error::Error>> {
         let mut file = fs::File::open(&self.file_name)?;
         let mut buffer = String::new();
@@ -34,7 +36,10 @@ impl ToDoFile {
     
         // Inicializar uma nova lista de tarefas
         let mut todos = ToDoList::new();
-        
+
+        todos.set_total_tasks(todos_values["total_tasks"].as_u64().unwrap_or(0) as usize);
+        todos.set_completed_tasks(todos_values["completed_tasks"].as_u64().unwrap_or(0) as usize);
+
         // Garantir que o Value é um array e iterar sobre ele
         if let Some(array) = todos_values["todos"].as_array() {
             for todo in array {
