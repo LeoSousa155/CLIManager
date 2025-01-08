@@ -1,11 +1,11 @@
 {
   "total_tasks": 20,
-  "completed_tasks": 7,
+  "completed_tasks": 11,
   "todos": [
     {
       "name": "Edição",
       "description": "Adicionar funcionalidade para editar uma entrada a partir do id",
-      "completed": false
+      "completed": true
     },
     {
       "name": "Desmarcar todos",
@@ -15,12 +15,12 @@
     {
       "name": "agrupados",
       "description": "Comando show que agrupa markeds com unmarkeds",
-      "completed": false
+      "completed": true
     },
     {
       "name": "Trocar ordem",
       "description": "comando para trocar a ordem das tarefas a partir dos indices",
-      "completed": false
+      "completed": true
     },
     {
       "name": "Mais propriedades",
@@ -80,7 +80,7 @@
     {
       "name": "comando 'clear'",
       "description": "criar o comando 'clear' que remove todos os todos da lista",
-      "completed": false
+      "completed": true
     },
     {
       "name": "modo daltonico",
@@ -94,7 +94,7 @@
     },
     {
       "name": "atualizar comando 'help'",
-      "description": "colocar o comando 'help' como descrição geral e fazer 'help comando' para ter informações mais detalhadas do comando indicado",
+      "description": "colocar o comando 'help' como descrição geral e fazer 'help comando' para ter informações mais detalhadas do comando indicado, o comando edit e o comando clear",
       "completed": false
     },
     {

@@ -67,10 +67,30 @@ impl ToDoList {
         }
     }
 
+    pub fn clear(&mut self) {
+        self.todos.clear();
+        self.total_tasks = 0;
+        self.completed_tasks = 0;
+    }
+
     // Modifying functions
 
+    pub fn swap_todos(&mut self, index1: usize, index2: usize) -> Result<(), &'static str> {
+        if 0 >= index1 || index1 > self.todos.len()  {
+            println!("Error: Index1 out of bounds");
+            return Err("Index1 out of bounds");
+        }
+        if 0 >= index2 || index2 > self.todos.len() {
+            println!("Error: Index2 out of bounds");
+            return Err("Index2 out of bounds");
+        }
+        self.todos.swap(index1-1, index2-1);
+        Ok(())
+    }
+
+
     pub fn change_todo_name(&mut self, index: usize, name: String) {
-        match self.todos.get_mut(index) {
+        match self.todos.get_mut(index-1) {
             Some(todo) => todo.set_name(name),
             None => println!("Todo not found"),
         }
@@ -78,7 +98,7 @@ impl ToDoList {
 
 
     pub fn change_todo_description(&mut self, index: usize, description: String) {
-        match self.todos.get_mut(index) {
+        match self.todos.get_mut(index-1) {
             Some(todo) => todo.set_description(description),
             None => println!("Todo not found"),
         }
@@ -86,7 +106,7 @@ impl ToDoList {
 
 
     pub fn toggle_todo(&mut self, index: usize) {
-        match self.todos.get_mut(index) {
+        match self.todos.get_mut(index-1) {
             Some(todo) => {
                 todo.toggle_mark();
                 if todo.is_marked() {

@@ -51,7 +51,7 @@ fn main() -> std::io::Result<()> {
         "toggle" => match todo_file.load() {
             Ok(todo) => {
                 let mut todo_list = todo;
-                todo_list.toggle_todo(args[2].parse::<usize>().unwrap() - 1);
+                todo_list.toggle_todo(args[2].parse::<usize>().unwrap());
 
                 todo_list.print_all_todos();
                 let _ = todo_file.save(&todo_list);
@@ -69,6 +69,59 @@ fn main() -> std::io::Result<()> {
             },
             Err(e) => println!("Todo file not found: {:?}", e),
         },
+
+        "edit" => match todo_file.load() {
+            Ok(todo) => {
+                if args.len() != 5 {
+                    println!("Please pass the index of the todo, the name and the description of the todo");
+                    return Ok(());
+                }
+
+                let mut todo_list = todo;
+
+                match  args[3].as_str() {
+                    "name" | "n"        => todo_list.change_todo_name(args[2].parse::<usize>().unwrap(), args[4].clone()),
+                    "description" | "d" => todo_list.change_todo_description(args[2].parse::<usize>().unwrap(), args[4].clone()),
+                    _                   => println!("Invalid field"),
+                }
+
+                todo_list.print_all_todos();
+                let _ = todo_file.save(&todo_list);
+            },
+            Err(e) => println!("Todo file not found: {:?}", e),
+        },
+
+        "clear" => match todo_file.load() {
+            Ok(todo) => {
+                let mut todo_list = todo;
+                todo_list.clear();
+                println!("All todos cleared");
+                let _ = todo_file.save(&todo_list);
+            },
+            Err(_) => println!("Todo file not found"),
+        },
+
+        "swap" => match todo_file.load() {
+            Ok(todo) => {
+                if args.len() != 4 {
+                    println!("Please pass the index of the todo to be moved and the index of the todo to be moved to");
+                    return Ok(());
+                }
+
+                let mut todo_list = todo;
+
+                match todo_list.swap_todos(args[2].parse::<usize>().unwrap(), args[3].parse::<usize>().unwrap()) {
+                    Ok(_) => {
+                        todo_list.print_all_todos();
+                        let _ = todo_file.save(&todo_list); 
+                    },
+                    Err(e) => {
+                        println!("Error: {:?}", e);
+                    },
+                }
+            },
+            Err(_) => println!("Todo file not found"),
+        }
 
         "reset" => match todo_file.load() {
             Ok(todo) => {
