@@ -39,6 +39,7 @@ impl ToDoFile {
 
         todos.set_total_tasks(todos_values["total_tasks"].as_u64().unwrap_or(0) as usize);
         todos.set_completed_tasks(todos_values["completed_tasks"].as_u64().unwrap_or(0) as usize);
+        todos.set_daltonic_mode(todos_values["daltonic_mode"].as_bool().unwrap_or(false));
 
         // Garantir que o Value é um array e iterar sobre ele
         if let Some(array) = todos_values["todos"].as_array() {

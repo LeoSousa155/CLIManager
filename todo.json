@@ -1,6 +1,7 @@
 {
-  "total_tasks": 20,
-  "completed_tasks": 11,
+  "total_tasks": 18,
+  "completed_tasks": 12,
+  "daltonic_mode": false,
   "todos": [
     {
       "name": "Edição",
@@ -38,9 +39,9 @@
       "completed": false
     },
     {
-      "name": "show parcial",
-      "description": "Fazer o show parcial das descrições (tipo 40 caracteres) e para ver o resto fazer 'clim show index'",
-      "completed": false
+      "name": "modo daltonico",
+      "description": "adicionar um modo daltônico para quem tem problemas em distinguir o vermelho do verde",
+      "completed": true
     },
     {
       "name": "clear on show",
@@ -81,16 +82,6 @@
       "name": "comando 'clear'",
       "description": "criar o comando 'clear' que remove todos os todos da lista",
       "completed": true
-    },
-    {
-      "name": "modo daltonico",
-      "description": "adicionar um modo daltônico para quem tem problemas em distinguir o vermelho do verde",
-      "completed": false
-    },
-    {
-      "name": "espaçar como os números",
-      "description": "deixar espaço em branco nos nomes de modo as descrições estarem alinhadas, tal como nos números",
-      "completed": false
     },
     {
       "name": "atualizar comando 'help'",

@@ -140,6 +140,9 @@ fn main() -> std::io::Result<()> {
                     todo.print_all_todos();
                     return Ok(());
                 }
+
+                // parsear o  argumento e iterar sobre cada opção
+
                 match args[2].as_str() {
                     "-m" => todo.print_completed_todos(),
                     "-u" => todo.print_incomplete_todos(),
@@ -157,6 +160,16 @@ fn main() -> std::io::Result<()> {
             Err(_) => println!("Todo file not found"),
         },
 
+        "daltonic" => match todo_file.load() {
+            Ok(todo) => {
+                let mut todo_list = todo;
+                todo_list.set_daltonic_mode(args[2].parse::<bool>().unwrap());
+                println!("Daltonic mode set to: {}", args[2]);
+                let _ = todo_file.save(&todo_list);
+            },
+            Err(_) => println!("Todo file not found"),
+        },
+        
         "help" => {
             println!("List of commands:
                 init                         - create a new todo file

@@ -8,6 +8,7 @@ use crate::todo::ToDo;
 pub struct ToDoList {
     total_tasks: usize,
     completed_tasks: usize,
+    daltonic_mode: bool,
     todos: Vec<ToDo>,
 }
 
@@ -17,6 +18,7 @@ impl ToDoList {
         ToDoList { 
             total_tasks: 0,
             completed_tasks: 0,
+            daltonic_mode: false,
             todos: Vec::new() 
         }
     }
@@ -29,6 +31,11 @@ impl ToDoList {
 
     pub fn set_completed_tasks(&mut self, completed_tasks: usize) {
         self.completed_tasks = completed_tasks;
+    }
+
+    
+    pub fn set_daltonic_mode(&mut self, daltonic_mode: bool) {
+        self.daltonic_mode = daltonic_mode;
     }
 
 
@@ -134,7 +141,7 @@ impl ToDoList {
         
         println!("All todos ({}/{}):", self.completed_tasks, self.total_tasks);
         for (index, todo) in self.todos.iter().enumerate() {
-            todo.print(index_len, index+1);
+            todo.print(index_len, index+1, Some(self.daltonic_mode));
         }
     }
 
@@ -145,7 +152,7 @@ impl ToDoList {
         println!("Completed todos ({}/{}):", self.completed_tasks, self.total_tasks);
         for (index, todo) in self.todos.iter().enumerate() {
             if todo.is_marked() {
-                todo.print(index_len, index+1);
+                todo.print(index_len, index+1, Some(self.daltonic_mode));
             }
         }
     }
@@ -157,7 +164,7 @@ impl ToDoList {
         println!("Incomplete todos ({}/{}):", self.total_tasks - self.completed_tasks, self.total_tasks);
         for (index, todo) in self.todos.iter().enumerate() {
             if !todo.is_marked() {
-                todo.print(index_len, index+1);
+                todo.print(index_len, index+1, Some(self.daltonic_mode));
             }
         }
     }
