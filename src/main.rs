@@ -172,17 +172,18 @@ fn main() -> std::io::Result<()> {
         
         "help" => {
             println!("List of commands:
-                init                         - create a new todo file
-                add     'name' 'description' - add a new todo
-                toggle  'index'              - mark a todo as completed
-                remove  'index'              - remove a todo
-                reset                        - reset the todo file (mark all todos as incomplete)
-                show                         - show all todos
-                |---show -m                  - show completed todos
-                |---show -u                  - show incomplete todos
-                |---show -mu                 - show completed todos before incomplete todos
-                ----show -um                 - show incomplete todos before completed todos
-                help                         - show this help message
+                init                            - create a new todo file
+                add     'name' 'description'    - add a new todo
+                toggle  'index'                 - mark a todo as completed
+                remove  'index'                 - remove a todo
+                reset                           - reset the todo file (mark all todos as incomplete)
+                show                            - show all todos
+                |---show -m                     - show completed todos
+                |---show -u                     - show incomplete todos
+                |---show -mu                    - show completed todos before incomplete todos
+                edit    'index' 'field' 'value' - edit a todo
+                daltonic 'true/false'           - set daltonic mode
+                help                            - show this help message
             ");
         },
 

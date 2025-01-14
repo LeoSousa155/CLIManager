@@ -1,6 +1,6 @@
 {
   "total_tasks": 18,
-  "completed_tasks": 12,
+  "completed_tasks": 13,
   "daltonic_mode": false,
   "todos": [
     {
@@ -86,7 +86,7 @@
     {
       "name": "atualizar comando 'help'",
       "description": "colocar o comando 'help' como descrição geral e fazer 'help comando' para ter informações mais detalhadas do comando indicado, o comando edit e o comando clear",
-      "completed": false
+      "completed": true
     },
     {
       "name": "adicionar percentagem no show feitos",
