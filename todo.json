@@ -1,97 +1,102 @@
 {
-  "total_tasks": 18,
+  "total_tasks": 19,
   "completed_tasks": 13,
   "daltonic_mode": false,
   "todos": [
     {
-      "name": "Edição",
-      "description": "Adicionar funcionalidade para editar uma entrada a partir do id",
+      "name": "Edit Functionality",
+      "description": "Add functionality to edit an entry by its ID.",
       "completed": true
     },
     {
-      "name": "Desmarcar todos",
-      "description": "adicionar funcialidade para desmarcar todos, útil para tarefas diárias",
+      "name": "Unmark All",
+      "description": "Add functionality to unmark all tasks, useful for daily tasks.",
       "completed": true
     },
     {
-      "name": "agrupados",
-      "description": "Comando show que agrupa markeds com unmarkeds",
+      "name": "Grouped Display",
+      "description": "Implement a 'show' command that groups marked and unmarked tasks.",
       "completed": true
     },
     {
-      "name": "Trocar ordem",
-      "description": "comando para trocar a ordem das tarefas a partir dos indices",
+      "name": "Swap Order",
+      "description": "Implement a command to swap the order of tasks using their indices.",
       "completed": true
     },
     {
-      "name": "Mais propriedades",
-      "description": "adicionar novas propriedades as entradas de cada tarefa",
+      "name": "More Properties",
+      "description": "Add new properties to each task entry, such as links or special variables.",
       "completed": false
     },
     {
-      "name": "Tipos de tarefas",
-      "description": "Diferenciar as tarefas e agrupar por tipo",
+      "name": "Task Types",
+      "description": "Differentiate tasks and group them by type.",
       "completed": false
     },
     {
-      "name": "subtarefas",
-      "description": "permitir que cada tarefa tenha subtarefas para dividir tarefas complexas em várias simples",
+      "name": "Add Steps",
+      "description": "Divide tasks into atomic steps to better describe the process to be done.",
       "completed": false
     },
     {
-      "name": "modo daltonico",
-      "description": "adicionar um modo daltônico para quem tem problemas em distinguir o vermelho do verde",
+      "name": "Clear on Show",
+      "description": "Clear the terminal after executing the 'show' command for better task visualization.",
       "completed": true
     },
     {
-      "name": "clear on show",
-      "description": "limpar o terminal depois de executar o comando show para ter melhor visualização das tarefas",
+      "name": "Clear + Show on Mark",
+      "description": "When marking a task, clear the terminal and show the updated task list, allowing for a better flow of changes.",
       "completed": true
     },
     {
-      "name": "clear + show no mark",
-      "description": "ao marcar uma tarefa limpa o terminal e mostra a nova lista de tarefas atualizada, permitindo melhor fluxo de alterações",
+      "name": "Remove Command Print",
+      "description": "Remove the printing of command arguments to make it cleaner.",
       "completed": true
     },
     {
-      "name": "remover print do comando",
-      "description": "remover o print dos argumentos do comando executado, para ficar mais clean",
-      "completed": true
-    },
-    {
-      "name": "criar instalador",
-      "description": "ver como posso criar um instalador para esta ferramenta de linha de comando, para partilhar com o pessoal",
+      "name": "Create Installer",
+      "description": "Explore how to create an installer for this command-line tool to share it with others.",
       "completed": false
     },
     {
-      "name": "criar updater",
-      "description": "criar um comando 'update' que atualiza a versão mais recente do clim",
+      "name": "Create Updater",
+      "description": "Create an 'update' command that updates to the latest version of CLIManager from the current repository.",
       "completed": false
     },
     {
-      "name": "tomar cuidado com os indices",
-      "description": "fazer o tratamento do IndexOutOfBounds nas funções que recebem indices do utilizador",
+      "name": "Handle Indices Carefully",
+      "description": "Handle IndexOutOfBounds errors in functions that receive user-provided indices.",
       "completed": true
     },
     {
-      "name": "separar structs",
-      "description": "colocar cada struct e suas respetivas implementações em ficheiros diferentes para ter melhor organização do código",
+      "name": "Separate Structs",
+      "description": "Place each struct and its respective implementations in different files for better code organization.",
       "completed": true
     },
     {
-      "name": "comando 'clear'",
-      "description": "criar o comando 'clear' que remove todos os todos da lista",
+      "name": "Clear Command",
+      "description": "Create the 'clear' command that removes all todos from the list.",
       "completed": true
     },
     {
-      "name": "atualizar comando 'help'",
-      "description": "colocar o comando 'help' como descrição geral e fazer 'help comando' para ter informações mais detalhadas do comando indicado, o comando edit e o comando clear",
+      "name": "Update Help Command",
+      "description": "Make 'help' a general description and use 'help command' for more detailed information about a specific command, like 'edit' and 'clear'.",
       "completed": true
     },
     {
-      "name": "adicionar percentagem no show feitos",
-      "description": "adicionar uma fração (ex.: 7/10) e valor em percentagem (ex.:70%) das tarefas feitas e não feitas com -m e -u e percentagem",
+      "name": "Add Percentage to Show",
+      "description": "Add a fraction (e.g., 7/10) and percentage value (e.g., 70%) of completed and incomplete tasks with -m and -u.",
       "completed": true
+    },
+    {
+      "name": "Daltonic Mode",
+      "description": "Add a daltonic mode for those who have trouble distinguishing red from green.",
+      "completed": true
+    },
+    {
+      "name": "Deadlines",
+      "description": "Add tasks with completion deadlines.",
+      "completed": false
     }
   ]
 }

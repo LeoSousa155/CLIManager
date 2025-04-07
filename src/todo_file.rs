@@ -31,30 +31,30 @@ impl ToDoFile {
         let mut buffer = String::new();
         file.read_to_string(&mut buffer)?;
     
-        // Desserializar o JSON para um Value
+        // Deserialize the JSON into a Value
         let todos_values: Value = serde_json::from_str(&buffer)?;
     
-        // Inicializar uma nova lista de tarefas
+        // Initialize a new task list
         let mut todos = ToDoList::new();
 
         todos.set_total_tasks(todos_values["total_tasks"].as_u64().unwrap_or(0) as usize);
         todos.set_completed_tasks(todos_values["completed_tasks"].as_u64().unwrap_or(0) as usize);
         todos.set_daltonic_mode(todos_values["daltonic_mode"].as_bool().unwrap_or(false));
 
-        // Garantir que o Value é um array e iterar sobre ele
+        // Ensure the Value is an array and iterate over it
         if let Some(array) = todos_values["todos"].as_array() {
             for todo in array {
-                // Ler os campos do JSON
+                // Read the fields from the JSON
                 let name = todo["name"].as_str().unwrap_or("").to_string();
                 let description = todo["description"].as_str().unwrap_or("").to_string();
                 let completed = todo["completed"].as_bool().unwrap_or(false);
     
-                // Criar uma nova tarefa e ajustá-la conforme necessário
+                // Create a new task and adjust it as needed
                 let mut todo = ToDo::new(name, description);
                 if completed {
                     todo.toggle_mark();
                 }
-                // Adicionar a tarefa à lista
+                // Add the task to the list
                 todos.add_todo(todo);
             }
         }

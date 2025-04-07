@@ -18,8 +18,7 @@ use todo_file::ToDoFile;
 
 
 fn main() -> std::io::Result<()> {
-
-    //limpar o terminal antes de mostrar o resultado do comando
+    
     clearscreen::clear().expect("failed to clear screen");
 
     let args: Vec<String> = env::args().collect();
@@ -140,8 +139,6 @@ fn main() -> std::io::Result<()> {
                     todo.print_all_todos();
                     return Ok(());
                 }
-
-                // parsear o  argumento e iterar sobre cada opção
 
                 match args[2].as_str() {
                     "-m" => todo.print_completed_todos(),
