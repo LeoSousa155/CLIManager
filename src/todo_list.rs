@@ -39,16 +39,6 @@ impl ToDoList {
     }
 
 
-    pub fn get_total_tasks(&self) -> usize {
-        self.total_tasks
-    }
-
-
-    pub fn get_completed_tasks(&self) -> usize {
-        self.completed_tasks
-    }
-
-
     pub fn  add_todo(&mut self, todo: ToDo) {
         self.todos.push(todo);
     }

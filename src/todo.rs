@@ -55,7 +55,6 @@ impl ToDo {
 
     // change completion state 
     pub fn toggle_mark(&mut self) { self.completed = !self.completed; }
-    pub fn set_marked(&mut self) { self.completed = true; }
     pub fn set_unmarked(&mut self) { self.completed = false; }
 
     pub fn print(&self, size: usize, index: usize, daltonic: Option<bool>) {
