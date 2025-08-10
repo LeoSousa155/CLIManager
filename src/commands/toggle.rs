@@ -7,15 +7,14 @@ pub struct ToggleCommand {
 
 impl Command for ToggleCommand {
     fn execute(self, todo_file: &ToDoFile) {
-        match todo_file.load() {
-            Ok(todo) => {
-                let mut todo_list = todo;
-                todo_list.toggle_todo(self.index);
+        if let Ok(todo) = todo_file.load() {
+            let mut todo_list = todo;
+            todo_list.toggle_todo(self.index);
 
-                todo_list.print_all_todos();
-                let _ = todo_file.save(&todo_list);
-            },
-            Err(e) => println!("Todo file not found: {:?}", e),
+            todo_list.print_all_todos();
+            let _ = todo_file.save(&todo_list);
+            return;
         }
+        println!("Todo file not found");
     }
 }

@@ -61,18 +61,25 @@ impl ToDo {
         let formatted_index = format!("{:>size$}", index, size=size);
 
         if daltonic.unwrap_or(false) {
-            if self.completed { 
-                println!("{}-[X] {} : {}", formatted_index, self.name.orange(), self.description); 
-            } else { 
-                println!("{}-[ ] {} : {}", formatted_index, self.name.blue(), self.description); 
-            }
+            self.print_daltonic_colors(formatted_index);
         } else {
-            if self.completed { 
-                println!("{}-[X] {} : {}", formatted_index, self.name.green(), self.description); 
-            } else { 
-                println!("{}-[ ] {} : {}", formatted_index, self.name.red(), self.description); 
-            }
+            self.print_normal_colors(formatted_index);
         }
-        
+    }
+
+    fn print_daltonic_colors(&self, formatted_index: String) {
+        if self.completed { 
+            println!("{}-[X] {} : {}", formatted_index, self.name.orange(), self.description); 
+        } else { 
+            println!("{}-[ ] {} : {}", formatted_index, self.name.blue(), self.description); 
+        }
+    }
+
+    fn print_normal_colors(&self, formatted_index: String) {
+        if self.completed { 
+            println!("{}-[X] {} : {}", formatted_index, self.name.green(), self.description); 
+        } else { 
+            println!("{}-[ ] {} : {}", formatted_index, self.name.red(), self.description); 
+        }
     }
 }

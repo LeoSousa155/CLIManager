@@ -51,18 +51,18 @@ impl ToDoList {
 
 
     pub fn remove_todo(&mut self, index: usize) {
-        if 0 < index && index <= self.todos.len() {
-            self.total_tasks -= 1;
-
-            if self.todos[index-1].is_marked() {
-                self.completed_tasks -= 1;
-            }
-
-            self.todos.remove(index-1);
-        } else {
+        if index <= 0 || index > self.todos.len() {
             println!("Error: Index out of bounds");
+            return;
         }
+
+        self.total_tasks -= 1;
+        if self.todos[index-1].is_marked() {
+            self.completed_tasks -= 1;
+        }
+        self.todos.remove(index-1);
     }
+
 
     pub fn clear(&mut self) {
         self.todos.clear();
@@ -103,17 +103,17 @@ impl ToDoList {
 
 
     pub fn toggle_todo(&mut self, index: usize) {
-        match self.todos.get_mut(index-1) {
-            Some(todo) => {
-                todo.toggle_mark();
-                if todo.is_marked() {
-                    self.completed_tasks += 1;
-                } else {
-                    self.completed_tasks -= 1;
-                }
-            },
-            None => println!("Todo not found"),
+        if let Some(todo) = self.todos.get_mut(index-1) {
+            todo.toggle_mark();
+            
+            if todo.is_marked() {
+                self.completed_tasks += 1;
+            } else {
+                self.completed_tasks -= 1;
+            }
+            return;
         }
+        println!("Todo not found");
     }
 
 

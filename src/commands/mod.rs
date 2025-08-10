@@ -1,5 +1,6 @@
 use super::{
     todo::ToDo,
+    todo_list::ToDoList,
     todo_file::ToDoFile
 };
 

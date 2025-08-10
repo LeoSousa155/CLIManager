@@ -16,6 +16,8 @@ fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
     let command = args[1].as_str();
 
+    println!("{}", command);
+
     if args.len() < 2 {
         println!("Please pass arguments to the command. Use 'help' to see the list of commands");
         return Ok(());
@@ -30,9 +32,11 @@ fn main() -> std::io::Result<()> {
         "remove" => commands::RemoveCommand{ index: args[2].parse::<usize>().unwrap() }.execute(&todo_file),
         "clear"  => commands::ClearCommand{}.execute(&todo_file),
         "reset"  => commands::ResetCommand{}.execute(&todo_file),
-        "show"   => commands::ShowCommand{ options: args[2].clone() }.execute(&todo_file),
         "daltonic" => commands::DaltonicCommand{ active: args[2].parse::<bool>().unwrap() }.execute(&todo_file),
         "help" => commands::HelpCommand{}.execute(&todo_file),
+        "show"   => commands::ShowCommand{ 
+                options: if args.len() > 2 { Some(args[2].clone()) } else { None } 
+            }.execute(&todo_file),
         "edit"   => commands::EditCommand{ 
                 index: args[2].parse::<usize>().unwrap(),
                 field: args[3].clone(),
