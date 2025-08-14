@@ -39,9 +39,14 @@ impl Command for EditCommand {
     fn execute(&self, todo_file: &ToDoFile) -> () {
         if let Ok(todo) = todo_file.load() {
             let mut todo_list = todo;
-            match  self.field {
+            let result = match self.field {
                 Field::Name        => todo_list.change_todo_name(self.index, self.value.clone()),
                 Field::Description => todo_list.change_todo_description(self.index, self.value.clone()),
+            };
+
+            if let Err(e) = result {
+                println!("{}", e);
+                return;
             }
             todo_list.print_all_todos();
             let _ = todo_file.save(&todo_list);

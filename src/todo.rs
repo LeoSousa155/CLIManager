@@ -36,10 +36,8 @@ pub struct ToDo {
 }
 
 
-
-
 impl ToDo {
-    pub fn new(name: String, description: String) -> ToDo {
+    pub fn new(name: String, description: String) -> Self {
         ToDo {
             name,
             description,
@@ -49,23 +47,29 @@ impl ToDo {
     
 
     pub fn set_name(&mut self, name: String) { self.name = name; }
+
+
     pub fn set_description(&mut self, description: String) { self.description = description; }
 
-    pub fn is_marked(&self) -> bool { self.completed}
 
-    // change completion state 
+    pub fn is_marked(&self) -> bool { self.completed} 
+
+
     pub fn toggle_mark(&mut self) { self.completed = !self.completed; }
+
+
     pub fn set_unmarked(&mut self) { self.completed = false; }
 
-    pub fn print(&self, size: usize, index: usize, daltonic: Option<bool>) {
-        let formatted_index = format!("{:>size$}", index, size=size);
 
-        if daltonic.unwrap_or(false) {
+    pub fn print(&self, size: usize, index: usize, daltonic: bool) {
+        let formatted_index = format!("{:>size$}", index, size=size);
+        if daltonic {
             self.print_daltonic_colors(formatted_index);
         } else {
             self.print_normal_colors(formatted_index);
         }
     }
+
 
     fn print_daltonic_colors(&self, formatted_index: String) {
         if self.completed { 
@@ -74,6 +78,7 @@ impl ToDo {
             println!("{}-[ ] {} : {}", formatted_index, self.name.blue(), self.description); 
         }
     }
+
 
     fn print_normal_colors(&self, formatted_index: String) {
         if self.completed { 
