@@ -20,6 +20,7 @@ pub mod reset;
 pub mod show;
 pub mod daltonic;
 pub mod help;
+pub mod invalid;
 
 pub use add::AddCommand;
 pub use init::InitCommand;
@@ -32,3 +33,4 @@ pub use reset::ResetCommand;
 pub use show::ShowCommand;
 pub use daltonic::DaltonicCommand;
 pub use help::HelpCommand;
+pub use invalid::InvalidCommand;

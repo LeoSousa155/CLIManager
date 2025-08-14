@@ -6,16 +6,24 @@ pub struct ShowCommand {
     pub options: Option<String>
 }
 
-impl ShowCommand {
-    fn show_todos(self, todo: &ToDoList) {
 
+impl ShowCommand {
+    pub fn new(args: &Vec<String>) -> Self {
+        let options =  if args.len() > 2 { 
+            Some(args[2].clone()) } 
+        else {
+            None 
+        };
+        ShowCommand { options }
+    }
+
+
+    fn show_todos(&self, todo: &ToDoList) {
         if self.options == Option::None {
             todo.print_all_todos();
             return;
         }
-
-        let option = self.options.unwrap();
-
+        let option = self.options.clone().unwrap();
         match option.as_str() {
             "-m"  => todo.print_completed_todos(),
             "-u"  => todo.print_incomplete_todos(),
@@ -32,8 +40,9 @@ impl ShowCommand {
     }   
 }
 
+
 impl Command for ShowCommand {
-    fn execute(self, todo_file: &ToDoFile) -> () {
+    fn execute(&self, todo_file: &ToDoFile) -> () {
         if let Ok(todo) = todo_file.load() {
             self.show_todos(&todo);
             return;       

@@ -14,40 +14,45 @@ fn main() -> std::io::Result<()> {
     clearscreen::clear().expect("failed to clear screen");
 
     let args: Vec<String> = env::args().collect();
-    let command = args[1].as_str();
-
-    println!("{}", command);
-
+    
     if args.len() < 2 {
         println!("Please pass arguments to the command. Use 'help' to see the list of commands");
         return Ok(());
     }
 
+    let executer: Box<dyn Command> = match args[1].as_str() {
+        "init" => Box::new(commands::InitCommand{}),
+        "clear" => Box::new(commands::ClearCommand{}),
+        "reset" => Box::new(commands::ResetCommand{}),
+        "help" => Box::new(commands::HelpCommand{}),
+        "show" => Box::new(commands::ShowCommand::new(&args)),
+        "add" => match commands::AddCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        "toggle" => match commands::ToggleCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        "remove" => match commands::RemoveCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        "daltonic" => match commands::DaltonicCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        "edit" => match commands::EditCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        "swap" => match commands::SwapCommand::new(&args) {
+            Ok(command) => Box::new(command),
+            Err(e) => { println!("{}", e); return Ok(()); }
+        },
+        _ => Box::new(commands::InvalidCommand{}),
+    };
     let todo_file = ToDoFile::new(String::from("./todo.json"));
-
-    match command {
-        "init"   => commands::InitCommand{}.execute(&todo_file),
-        "add"    => commands::AddCommand{ name: args[2].clone(), description: args[3].clone() }.execute(&todo_file),
-        "toggle" => commands::ToggleCommand{ index: args[2].parse::<usize>().unwrap() }.execute(&todo_file),
-        "remove" => commands::RemoveCommand{ index: args[2].parse::<usize>().unwrap() }.execute(&todo_file),
-        "clear"  => commands::ClearCommand{}.execute(&todo_file),
-        "reset"  => commands::ResetCommand{}.execute(&todo_file),
-        "daltonic" => commands::DaltonicCommand{ active: args[2].parse::<bool>().unwrap() }.execute(&todo_file),
-        "help" => commands::HelpCommand{}.execute(&todo_file),
-        "show"   => commands::ShowCommand{ 
-                options: if args.len() > 2 { Some(args[2].clone()) } else { None } 
-            }.execute(&todo_file),
-        "edit"   => commands::EditCommand{ 
-                index: args[2].parse::<usize>().unwrap(),
-                field: args[3].clone(),
-                value: args[4].clone() 
-            }.execute(&todo_file),
-        "swap"   => commands::SwapCommand{
-                index1: args[2].parse::<usize>().unwrap(),
-                index2: args[3].parse::<usize>().unwrap()
-            }.execute(&todo_file),
-        _ => println!("Invalid command, use 'help' to see the list of commands"),
-    }
-
+    executer.execute(&todo_file);
     Ok(())
 }

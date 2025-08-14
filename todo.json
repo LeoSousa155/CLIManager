@@ -1,6 +1,6 @@
 {
-  "total_tasks": 19,
-  "completed_tasks": 13,
+  "total_tasks": 20,
+  "completed_tasks": 14,
   "daltonic_mode": false,
   "todos": [
     {
@@ -97,6 +97,11 @@
       "name": "Deadlines",
       "description": "Add tasks with completion deadlines.",
       "completed": false
+    },
+    {
+      "name": "teste",
+      "description": "teste",
+      "completed": true
     }
   ]
 }

@@ -58,7 +58,6 @@ impl ToDoFile {
                 todos.add_todo(todo);
             }
         }
-    
         Ok(todos)
     }
     

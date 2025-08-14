@@ -1,40 +1,52 @@
 use super::ToDoFile;
 use super::Command;
 
-pub struct EditCommand {
-    pub index: usize,
-    pub field: String,  // trocar por um enum Field { Name, Description }
-    pub value: String,
+
+enum Field {
+    Name,
+    Description
 }
 
+
+pub struct EditCommand {
+    index: usize,
+    field: Field,
+    value: String,
+}
+
+
+impl EditCommand {
+    pub fn new(args: &Vec<String>) -> Result<Self, String> {
+        if args.len() < 5 { 
+            return Err("Error: 'edit' requires an index, a field and a value.".to_string());
+        }
+        let index = match args[2].parse::<usize>() {
+            Ok(index) => index,
+            Err(_) => return Err("Error: The index must be a valid number.".to_string())
+        };
+        let field: Field = match args[3].as_str() {
+            "name"        | "n" => Field::Name,
+            "description" | "d" => Field::Description,
+            _ => return Err("Error: Field value is not valid".to_string())
+        };
+        let value = args[4].clone();
+        Ok(EditCommand{ index, field, value })
+    }
+}
+
+
 impl Command for EditCommand {
-    fn execute(self, todo_file: &ToDoFile) -> () {
-
+    fn execute(&self, todo_file: &ToDoFile) -> () {
         if let Ok(todo) = todo_file.load() {
-            /*
-            esta verificação tem que ser feita no parsing do comando, não aqui
-
-            if args.len() != 5 {
-                println!("Please pass the index of the todo, the name and the description of the todo");
-                return Ok(());
-            } 
-            */
-
             let mut todo_list = todo;
-
-
-            // este match deve substituir as strings por variantes de um enum criado no parsing dos argumentos
-            match  self.field.as_str() {
-                "name" | "n"        => todo_list.change_todo_name(self.index, self.value),
-                "description" | "d" => todo_list.change_todo_description(self.index, self.value),
-                _ => println!("Invalid field"),
+            match  self.field {
+                Field::Name        => todo_list.change_todo_name(self.index, self.value.clone()),
+                Field::Description => todo_list.change_todo_description(self.index, self.value.clone()),
             }
-
             todo_list.print_all_todos();
             let _ = todo_file.save(&todo_list);
             return;
         }
-
         println!("Todo file not found");
     }
 }
